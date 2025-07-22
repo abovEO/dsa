@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class bucket_sort {
@@ -20,11 +19,7 @@ public class bucket_sort {
         
         for (float value : arr) {
             int val = Math.min((int)(value * n), n - 1);
-            buckets[val].add(value);
-        }
-
-        for(List<Float> bucket: buckets){
-            Collections.sort(bucket);
+            insertSorted(buckets[val], value);
         }
 
         int index = 0;
@@ -35,8 +30,16 @@ public class bucket_sort {
         }
     }
 
+    private static void insertSorted(List<Float> list, float value) {
+        int i = 0;
+        while (i < list.size() && list.get(i) < value) {
+            i++;
+        }
+        list.add(i, value); 
+    }
+
     public static void main(String[] args) {
-        float[] arr = {0.78f, 1.2f, 0.23f, 0.43f};
+        float[] arr = {0.78f, 1.2f, 0.23f, 0.43f, 100f, 120f, 32f, 41f};
         bucketSort(arr);
         System.out.println("Sorted array: " + Arrays.toString(arr));
     }
